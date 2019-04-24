@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+  <meta charset="utf-8">
+
+  <meta http-equiv="X-UA-Compatible"
+    content="IE=edge">
+
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0">
+
+  <title>Websocket Source</title>
+
+  <link rel="icon"
+    href="favicon.ico">
+
+  <link href="https://fonts.googleapis.com/css?family=Noto+Sans|Oxygen|Padauk|Ubuntu"
+    rel="stylesheet">
+
+  <style type="text/css">
+    body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      font-family: 'Ubuntu', sans-serif;
+      font-size: 14px;
+
+    }
+
+    pre {
+      white-space: pre-wrap;
+      white-space: -moz-pre-wrap;
+      white-space: -pre-wrap;
+      white-space: -o-pre-wrap;
+      word-wrap: break-word;
+    }
+
+    .container {
+      width: 95%;
+      margin: auto;
+    }
+
+    #input {
+      width: 100%;
+      height: 90vh;
+    }
+  </style>
+
+</head>
+
+<body>
+
+  <div class="container">
+
+    <pre id="output"
+      style="color: green;">
+    </pre>
+
+    <textarea id="input"
+      onchange="send()"
+      onkeydown="send()"
+      onkeyup="send()">
+    </textarea>
+
+  </div>
+
+  <script>
+    var input = document.getElementById("input");
+    var url = window.location.host.toString() + "/websocket/source";
+    var socket = new WebSocket("ws://" + url);
+
+    socket.onopen = function() {
+      output.innerHTML += "Status: Connected\n";
+    };
+
+    socket.onmessage = function(e) {
+      output.innerHTML += "Server: " + e.data + "\n";
+    };
+
+    function send() {
+      socket.send(input.value);
+    }
+  </script>
+
+</body>

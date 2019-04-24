@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+  <meta charset="utf-8">
+
+  <meta http-equiv="X-UA-Compatible"
+    content="IE=edge">
+
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0">
+
+  <title>Websocket Client</title>
+
+  <link rel="icon"
+    href="favicon.ico">
+
+  <link href="https://fonts.googleapis.com/css?family=Noto+Sans|Oxygen|Padauk|Ubuntu"
+    rel="stylesheet">
+
+  <style type="text/css">
+    body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      font-family: 'Ubuntu', sans-serif;
+      font-size: 14px;
+
+    }
+
+    pre {
+      white-space: pre-wrap;
+      white-space: -moz-pre-wrap;
+      white-space: -pre-wrap;
+      white-space: -o-pre-wrap;
+      word-wrap: break-word;
+    }
+
+    .container {
+      width: 95%;
+      margin: auto;
+    }
+  </style>
+
+</head>
+
+<body>
+
+  <div class="container">
+
+    <pre id="state"
+      style="margin-bottom: 1em; color: green;">
+    </pre>
+
+    <pre id="output">
+    </pre>
+
+  </div>
+
+  <script>
+    var state = document.getElementById("state");
+    var output = document.getElementById("output");
+    var url = window.location.host.toString() + "/websocket/client";
+    var socket = new WebSocket("ws://" + url);
+
+    socket.onopen = function() {
+      state.innerHTML += "Status: Connected\n";
+    };
+
+    socket.onmessage = function(e) {
+      output.innerHTML = e.data;
+    };
+  </script>
+
+</body>
